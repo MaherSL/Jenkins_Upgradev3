@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build Application') {
             steps {
-                mvn -f java-tomcat-sample/pom.xml clean package
+                cmd_exec('mvn -f java-tomcat-sample/pom.xml clean package')
             }
             post {
                 success {
@@ -12,5 +12,8 @@ pipeline {
                 }
             }
         }
+    }
+    def cmd_exec(command) {
+        return bat(returnStdout: true, script: "${command}").trim()
     }
 }
